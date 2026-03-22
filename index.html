@@ -1,1 +1,1186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizzeria Bayard — Pontcharra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Petit+Formal+Script&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 
+:root{
+  --paper:#f5ede0;
+  --paper2:#ede0cc;
+  --paper3:#e8d5b8;
+  --ink:#1c1008;
+  --ink2:#3d2b14;
+  --faded:#7a6045;
+  --red:#8b1a1a;
+  --red2:#a52020;
+  --green:#1a4a2e;
+  --gold:#b8862a;
+  --gold2:#d4a843;
+  --goldl:#faf0da;
+  --border:#c8a87a;
+  --border2:#d4b896;
+  --white:#fffbf5;
+}
+
+/* PAPER TEXTURE BASE */
+body{
+  font-family:'Libre Baskerville',Georgia,serif;
+  background:var(--paper);
+  color:var(--ink);
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+  opacity:.6;mix-blend-mode:multiply;
+}
+
+/* ═══ NAV ═══ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:var(--red);
+  border-bottom:3px solid var(--gold);
+  padding:0 4rem;
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;font-weight:700;letter-spacing:3px;
+  color:var(--paper);
+  text-transform:uppercase;
+}
+.nav-logo em{color:var(--gold2);font-style:italic}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  font-family:'Libre Baskerville',serif;
+  font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(245,237,224,.65);text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--gold2)}
+.nav-right{display:flex;align-items:center;gap:.8rem}
+/* Social pills in nav */
+.nav-social{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.4rem .9rem;border-radius:100px;
+  font-size:.7rem;font-weight:700;letter-spacing:1px;
+  text-decoration:none;transition:opacity .2s,transform .15s;
+  white-space:nowrap;
+}
+.nav-social:hover{opacity:.85;transform:translateY(-1px)}
+.ns-insta{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
+.ns-pj{background:#ffcc00;color:#1a1a1a}
+.nav-order-btn{
+  background:var(--paper);color:var(--red);
+  padding:.42rem 1.1rem;border-radius:2px;
+  font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;border:2px solid var(--gold);
+  transition:background .2s;white-space:nowrap;
+}
+.nav-order-btn:hover{background:var(--goldl)}
+
+/* ═══ HERO ═══ */
+#hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  padding:80px 2rem 0;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1800&q=90') center/cover no-repeat;
+  filter:sepia(.5) brightness(.35) saturate(.8);
+}
+/* Vignette */
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, transparent 30%, rgba(28,16,8,.85) 100%);
+}
+/* Grain overlay */
+.hero-grain{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)' opacity='0.12'/%3E%3C/svg%3E");
+  opacity:.4;mix-blend-mode:overlay;
+}
+.hero-inner{position:relative;z-index:2;padding:3rem 2rem 0}
+
+/* Decorative frame */
+.frame-outer{
+  display:inline-block;position:relative;
+  padding:3rem 4rem;
+  border:1px solid rgba(212,168,67,.35);
+}
+.frame-outer::before,.frame-outer::after{
+  content:'';position:absolute;
+  width:30px;height:30px;
+  border-color:var(--gold2);border-style:solid;
+}
+.frame-outer::before{top:8px;left:8px;border-width:2px 0 0 2px}
+.frame-outer::after{bottom:8px;right:8px;border-width:0 2px 2px 0}
+.frame-inner{
+  border:1px solid rgba(212,168,67,.2);
+  padding:2rem 3rem;
+}
+
+.hero-pretitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.8rem;letter-spacing:6px;text-transform:uppercase;
+  color:var(--gold2);margin-bottom:1rem;
+}
+.hero-title{
+  font-family:'IM Fell English',serif;
+  font-size:clamp(3.5rem,7vw,7rem);
+  line-height:.9;
+  color:var(--paper);
+  text-shadow:0 2px 20px rgba(0,0,0,.5);
+  margin-bottom:.5rem;
+}
+.hero-title em{
+  font-family:'Petit Formal Script',cursive;
+  font-size:.65em;
+  color:var(--gold2);
+  display:block;line-height:1.2;
+  font-style:normal;
+}
+.hero-divider{
+  display:flex;align-items:center;gap:1rem;
+  margin:1.2rem auto;
+  color:var(--gold2);
+  font-size:.9rem;
+  max-width:300px;
+}
+.hero-divider::before,.hero-divider::after{content:'';flex:1;height:1px;background:rgba(212,168,67,.4)}
+.hero-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-style:italic;
+  color:rgba(245,237,224,.7);
+  line-height:1.7;max-width:480px;margin:0 auto 2rem;
+}
+.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.cta-hero{
+  font-family:'Libre Baskerville',serif;
+  font-size:.75rem;letter-spacing:2.5px;text-transform:uppercase;
+  padding:.85rem 2rem;text-decoration:none;
+  border:1px solid;transition:all .25s;display:inline-flex;align-items:center;gap:.6rem;
+}
+.cta-hero-red{background:var(--red);border-color:var(--gold);color:var(--paper)}
+.cta-hero-red:hover{background:var(--red2)}
+.cta-hero-ghost{background:transparent;border-color:rgba(212,168,67,.5);color:var(--paper)}
+.cta-hero-ghost:hover{background:rgba(212,168,67,.1);border-color:var(--gold2)}
+.cta-green{background:#06c167;border-color:#04a356;color:#fff}
+.cta-green:hover{background:#04a356}
+
+/* Bottom strip */
+.hero-strip{
+  position:relative;z-index:2;
+  width:100%;margin-top:auto;
+  background:rgba(28,16,8,.88);
+  border-top:1px solid rgba(184,134,42,.3);
+  display:grid;grid-template-columns:repeat(4,1fr);
+  padding:0;
+}
+.hs{
+  padding:1.2rem 1.5rem;
+  border-right:1px solid rgba(184,134,42,.15);
+  display:flex;flex-direction:column;gap:.3rem;
+}
+.hs:last-child{border-right:none}
+.hs-l{font-family:'Libre Baskerville',serif;font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--faded)}
+.hs-v{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-weight:600;color:var(--paper)}
+.hs-v a{color:var(--gold2);text-decoration:none}
+
+/* ═══ UBER BANNER ═══ */
+.uber-bar{
+  background:linear-gradient(135deg,#04a356,#06c167);
+  padding:1.2rem 4rem;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;
+  border-bottom:2px solid rgba(0,0,0,.1);
+}
+.ub-l{display:flex;align-items:center;gap:1rem}
+.ub-ico{font-size:2rem}
+.ub-txt strong{display:block;font-size:.95rem;font-weight:700;color:#fff;font-family:'Libre Baskerville',serif}
+.ub-txt span{font-size:.8rem;color:rgba(255,255,255,.8)}
+.ub-cta{
+  background:#fff;color:#04a356;
+  padding:.7rem 1.8rem;border-radius:100px;
+  font-size:.78rem;font-weight:800;letter-spacing:.5px;
+  text-decoration:none;white-space:nowrap;
+  transition:transform .2s,box-shadow .2s;
+}
+.ub-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.15)}
+
+/* ═══ SOCIAL BAR ═══ */
+.social-bar{
+  background:var(--paper2);
+  border-bottom:1px solid var(--border2);
+  border-top:1px solid var(--border2);
+  padding:.9rem 4rem;
+  display:flex;align-items:center;justify-content:center;gap:1.5rem;
+  flex-wrap:wrap;
+}
+.social-bar-label{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.82rem;letter-spacing:3px;text-transform:uppercase;
+  color:var(--faded);font-style:italic;
+}
+.sb-btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.55rem 1.4rem;border-radius:3px;
+  font-family:'Libre Baskerville',serif;
+  font-size:.75rem;font-weight:700;letter-spacing:1px;
+  text-decoration:none;transition:transform .2s,box-shadow .2s;
+}
+.sb-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.sb-insta{background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);color:#fff}
+.sb-pj{background:#ffcc00;color:#1a1a1a;border:1px solid #e6b800}
+
+/* SVG icons inline */
+.ico-insta{width:16px;height:16px;fill:currentColor}
+.ico-pj{width:16px;height:16px}
+
+/* ═══ ORNAMENT ═══ */
+.ornament{text-align:center;padding:2rem 0 0;color:var(--gold);font-size:1.4rem;letter-spacing:8px}
+.ornament2{text-align:center;padding:1.5rem 0;color:var(--border);font-size:1.1rem;letter-spacing:5px}
+
+/* ═══ SECTION HEADER ═══ */
+.s-wrap{max-width:1200px;margin:0 auto}
+.s-center{text-align:center}
+.s-eyebrow{
+  font-family:'Petit Formal Script',cursive;
+  font-size:1.5rem;color:var(--red);margin-bottom:.3rem;
+}
+h2{
+  font-family:'IM Fell English',serif;
+  font-size:clamp(2.2rem,4vw,3.8rem);
+  line-height:1.05;color:var(--ink);margin-bottom:.5rem;
+  font-weight:400;
+}
+h2 em{font-style:italic;color:var(--red)}
+.s-rule{
+  display:flex;align-items:center;gap:1rem;margin:1rem auto;max-width:400px;
+  color:var(--gold);font-size:.9rem;
+}
+.s-rule::before,.s-rule::after{content:'';flex:1;height:1px;background:var(--border)}
+.s-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;font-style:italic;color:var(--faded);
+  line-height:1.8;max-width:580px;margin:0 auto 3rem;
+}
+
+/* ═══ GALERIE ═══ */
+#galerie{padding:5rem 4rem;background:var(--ink)}
+.gal-header{text-align:center;margin-bottom:3rem}
+.gal-header h2{color:var(--paper)}
+.gal-header .s-eyebrow{color:var(--gold2)}
+.photo-grid{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr;
+  grid-template-rows:280px 280px;
+  gap:4px;max-width:1200px;margin:0 auto;
+}
+.gi{position:relative;overflow:hidden;cursor:pointer}
+.gi:first-child{grid-row:span 2}
+.gi img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.25,.46,.45,.94),filter .5s;filter:brightness(.78) sepia(.15) saturate(1.1)}
+.gi:hover img{transform:scale(1.06);filter:brightness(.5) sepia(.3) saturate(.8)}
+.gi-frame{
+  position:absolute;inset:8px;
+  border:1px solid rgba(212,168,67,.25);
+  pointer-events:none;z-index:2;
+}
+.gi-cap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;background:linear-gradient(to top,rgba(28,16,8,.85) 0%,transparent 55%);opacity:0;transition:opacity .35s;z-index:3}
+.gi:hover .gi-cap{opacity:1}
+.gi-cap h4{font-family:'IM Fell English',serif;font-size:1.1rem;color:var(--paper);font-style:italic}
+.gi-cap p{font-family:'Libre Baskerville',serif;font-size:.68rem;color:var(--gold2);margin-top:.3rem;letter-spacing:2px;text-transform:uppercase}
+
+/* ═══ MENU ═══ */
+#menu{
+  padding:6rem 4rem;
+  background:var(--paper2);
+  position:relative;
+}
+/* Watermark */
+#menu::before{
+  content:'PIZZERIA';
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);
+  font-family:'IM Fell English',serif;
+  font-size:18vw;color:rgba(184,134,42,.04);
+  pointer-events:none;white-space:nowrap;letter-spacing:.5em;z-index:0;
+}
+.menu-inner{position:relative;z-index:1;max-width:900px;margin:0 auto}
+.menu-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  box-shadow:4px 4px 0 var(--border2), 8px 8px 0 rgba(184,134,42,.1);
+  padding:3rem 3.5rem;
+  position:relative;
+}
+/* Paper corners */
+.menu-card::before,.menu-card::after{
+  content:'';position:absolute;
+  width:24px;height:24px;border-color:var(--gold);border-style:solid;
+}
+.menu-card::before{top:10px;left:10px;border-width:2px 0 0 2px}
+.menu-card::after{bottom:10px;right:10px;border-width:0 2px 2px 0}
+
+.menu-title-block{text-align:center;margin-bottom:2.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border2)}
+.menu-establishment{
+  font-family:'Petit Formal Script',cursive;
+  font-size:2.5rem;color:var(--red);line-height:1;
+}
+.menu-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.8rem;letter-spacing:5px;text-transform:uppercase;
+  color:var(--faded);margin-top:.5rem;
+}
+.menu-tagline{
+  font-family:'IM Fell English',serif;
+  font-size:.85rem;font-style:italic;
+  color:var(--faded);margin-top:.3rem;
+}
+.menu-address{
+  font-family:'Libre Baskerville',serif;
+  font-size:.7rem;letter-spacing:1px;color:var(--border);
+  margin-top:.8rem;
+}
+
+/* Pizza items */
+.pizza-section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.72rem;letter-spacing:5px;text-transform:uppercase;
+  color:var(--red);text-align:center;margin:2rem 0 1.2rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.pizza-section-title::before,.pizza-section-title::after{content:'';flex:1;height:1px;background:var(--border2)}
+
+.pizza-list{display:flex;flex-direction:column;gap:0}
+.pz{
+  display:flex;align-items:baseline;gap:.5rem;
+  padding:.85rem 0;
+  border-bottom:1px dashed var(--border2);
+  transition:background .2s;
+  position:relative;
+}
+.pz:last-child{border-bottom:none}
+.pz:hover{background:rgba(184,134,42,.04);margin:0 -1rem;padding-left:1rem;padding-right:1rem}
+.pz-name{
+  font-family:'IM Fell English',serif;
+  font-size:1.05rem;color:var(--ink);
+  white-space:nowrap;flex-shrink:0;
+}
+.pz-dots{
+  flex:1;border-bottom:1px dotted var(--border);
+  margin:0 .5rem;align-self:flex-end;
+  margin-bottom:4px;min-width:20px;
+}
+.pz-price{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-weight:700;color:var(--red);
+  white-space:nowrap;flex-shrink:0;
+}
+.pz-ingr{
+  display:block;width:100%;
+  font-family:'Cormorant Garamond',serif;
+  font-size:.82rem;font-style:italic;color:var(--faded);
+  padding-top:.15rem;line-height:1.4;
+}
+.pz-wrap{display:flex;flex-direction:column;flex:1}
+
+.badge-special{
+  font-family:'Libre Baskerville',serif;
+  font-size:.58rem;letter-spacing:2px;text-transform:uppercase;
+  background:var(--red);color:var(--paper);
+  padding:.15rem .55rem;margin-left:.6rem;
+  vertical-align:middle;
+}
+.badge-new{background:var(--green)}
+
+.menu-note{
+  text-align:center;margin-top:2rem;padding-top:1.5rem;
+  border-top:1px solid var(--border2);
+  font-family:'Cormorant Garamond',serif;
+  font-size:.85rem;font-style:italic;color:var(--faded);
+  line-height:1.7;
+}
+.menu-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem}
+.menu-btn{
+  font-family:'Libre Baskerville',serif;
+  font-size:.7rem;letter-spacing:2px;text-transform:uppercase;
+  padding:.75rem 1.8rem;text-decoration:none;
+  border:1px solid;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;
+}
+.mb-red{background:var(--red);border-color:var(--gold);color:var(--paper)}
+.mb-red:hover{background:var(--red2)}
+.mb-green{background:#06c167;border-color:#04a356;color:#fff}
+.mb-green:hover{background:#04a356}
+
+/* ═══ PHILOSOPHIE ═══ */
+#philo{
+  padding:6rem 4rem;background:var(--paper);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:5rem;align-items:center;max-width:1400px;margin:0 auto;
+}
+.philo-imgs{position:relative;height:500px}
+.pimg-main{
+  position:absolute;top:0;left:0;right:2.5rem;bottom:2.5rem;
+  object-fit:cover;
+  filter:sepia(.2) brightness(.85) saturate(1.1);
+  border:2px solid var(--border);
+}
+.pimg-acc{
+  position:absolute;bottom:0;right:0;
+  width:55%;height:55%;object-fit:cover;
+  border:4px solid var(--paper);
+  box-shadow:4px 4px 20px rgba(28,16,8,.2);
+  filter:sepia(.15) brightness(.8) saturate(1.2);
+}
+.philo-stamp{
+  position:absolute;top:1.5rem;left:-1rem;
+  background:var(--red);color:var(--paper);
+  padding:1rem 1.4rem;
+  font-family:'Petit Formal Script',cursive;font-size:1.2rem;
+  transform:rotate(-3deg);
+  box-shadow:3px 3px 12px rgba(0,0,0,.25);z-index:10;
+}
+.philo-content .s-eyebrow{text-align:left}
+.philo-content h2{text-align:left}
+.philo-content .s-rule{margin-left:0;max-width:280px}
+.philo-desc{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-style:italic;color:var(--faded);
+  line-height:1.85;margin-bottom:1.5rem;
+}
+.philo-list{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+.philo-list li{
+  display:flex;align-items:flex-start;gap:1rem;
+  font-family:'Libre Baskerville',serif;
+  font-size:.82rem;color:var(--ink2);line-height:1.6;
+}
+.pl-check{
+  color:var(--red);font-size:.9rem;flex-shrink:0;margin-top:.1rem;
+}
+
+/* ═══ HORAIRES ═══ */
+#horaires{
+  padding:6rem 4rem;
+  background:var(--ink2);
+  position:relative;overflow:hidden;
+}
+#horaires::before{
+  content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cg fill='none' stroke='rgba(184,134,42,.06)' stroke-width='1'%3E%3Cpath d='M0 30h60M30 0v60M0 0l60 60M60 0L0 60'/%3E%3C/g%3E%3C/svg%3E");
+}
+.hor-inner{position:relative;z-index:1;max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.hor-header .s-eyebrow{color:var(--gold2)}
+.hor-header h2{color:var(--paper);font-size:2.5rem}
+.hor-header h2 em{color:var(--gold2)}
+.hor-card{
+  background:rgba(255,251,245,.04);
+  border:1px solid rgba(184,134,42,.2);
+  padding:2rem;
+}
+.hor-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:.8rem 0;border-bottom:1px solid rgba(184,134,42,.1);
+}
+.hor-row:last-child{border-bottom:none}
+.hor-day{
+  font-family:'Libre Baskerville',serif;
+  font-size:.8rem;font-weight:700;color:rgba(245,237,224,.65);
+  text-transform:uppercase;letter-spacing:1px;
+}
+.hor-day.hl{color:var(--gold2)}
+.hor-time{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.92rem;text-align:right;
+}
+.hor-time.open{color:#6ee7a0;font-weight:600}
+.hor-time.closed{color:rgba(245,237,224,.25);font-style:italic}
+
+.contact-card{
+  background:rgba(255,251,245,.04);
+  border:1px solid rgba(184,134,42,.2);
+  padding:2rem;
+}
+.cc-title{
+  font-family:'Petit Formal Script',cursive;
+  font-size:1.8rem;color:var(--gold2);
+  margin-bottom:1.5rem;
+}
+.cc-item{
+  display:flex;gap:1rem;padding:1rem 0;
+  border-bottom:1px solid rgba(184,134,42,.1);
+  align-items:flex-start;
+}
+.cc-item:last-child{border-bottom:none}
+.cc-ico{
+  width:36px;height:36px;flex-shrink:0;
+  background:rgba(139,26,26,.3);border:1px solid rgba(139,26,26,.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;border-radius:2px;
+}
+.cc-l{
+  font-family:'Libre Baskerville',serif;
+  font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--faded);margin-bottom:.2rem;
+}
+.cc-v{
+  font-family:'Cormorant Garamond',serif;
+  font-size:.95rem;font-weight:600;color:var(--paper);line-height:1.4;
+}
+.cc-v a{color:var(--gold2);text-decoration:none}
+
+/* ═══ SOCIAL SECTION ═══ */
+#social{
+  padding:5rem 4rem;
+  background:var(--paper3);
+  text-align:center;
+  border-top:1px solid var(--border2);
+  border-bottom:1px solid var(--border2);
+}
+.social-cards{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem}
+.sc{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.5rem 2rem;
+  text-decoration:none;
+  border:1px solid;
+  transition:transform .2s,box-shadow .2s;
+  min-width:260px;
+}
+.sc:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.15)}
+.sc-insta{
+  background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
+  border-color:transparent;color:#fff;
+}
+.sc-pj{background:#fff;border-color:#ffcc00;color:#1a1a1a}
+.sc-uber{background:#06c167;border-color:#04a356;color:#fff}
+.sc-ico-wrap{font-size:2rem}
+.sc-text strong{display:block;font-family:'Libre Baskerville',serif;font-size:.85rem;font-weight:700}
+.sc-text span{font-family:'Cormorant Garamond',serif;font-size:.85rem;font-style:italic;opacity:.8}
+
+/* ═══ CONTACT ═══ */
+#contact{padding:6rem 4rem;background:var(--paper)}
+.contact-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:5rem;align-items:start}
+.map-wrap iframe{width:100%;height:300px;border:2px solid var(--border);filter:sepia(.2) contrast(1.05);display:block}
+.map-wrap .address-plate{
+  background:var(--ink);color:var(--paper);
+  padding:1.2rem 1.5rem;
+  border:1px solid var(--gold);
+  margin-top:3px;
+  display:flex;flex-direction:column;gap:.4rem;
+}
+.ap-row{font-family:'Libre Baskerville',serif;font-size:.8rem;display:flex;gap:.8rem;align-items:center}
+.ap-row strong{min-width:70px;color:var(--gold2);font-size:.7rem;letter-spacing:1px;text-transform:uppercase}
+
+.form-box{
+  background:var(--white);
+  border:1px solid var(--border);
+  padding:2.5rem;
+  position:relative;
+  box-shadow:4px 4px 0 var(--border2);
+}
+.form-box::before,.form-box::after{
+  content:'';position:absolute;
+  width:20px;height:20px;
+  border-color:var(--gold);border-style:solid;
+}
+.form-box::before{top:8px;left:8px;border-width:2px 0 0 2px}
+.form-box::after{bottom:8px;right:8px;border-width:0 2px 2px 0}
+.form-hl{
+  font-family:'IM Fell English',serif;
+  font-size:1.3rem;color:var(--red);margin-bottom:1.5rem;
+  text-align:center;font-style:italic;
+}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.fg{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem}
+.fg label{
+  font-family:'Libre Baskerville',serif;
+  font-size:.58rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--faded);
+}
+.fg input,.fg select,.fg textarea{
+  background:var(--paper);
+  border:1px solid var(--border);
+  color:var(--ink);padding:.75rem .9rem;
+  font-family:'Cormorant Garamond',serif;font-size:1rem;
+  outline:none;transition:border-color .2s;width:100%;appearance:none;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--red)}
+.fg textarea{resize:vertical;min-height:100px}
+.submit{
+  width:100%;background:var(--red);color:var(--paper);padding:.9rem;
+  font-family:'Libre Baskerville',serif;font-size:.72rem;
+  letter-spacing:3px;text-transform:uppercase;
+  border:1px solid var(--gold);cursor:pointer;
+  transition:background .2s;
+}
+.submit:hover{background:var(--red2)}
+.form-ok{display:none;margin-top:1rem;background:#e8f5e9;border:1px solid #a5d6a7;padding:.8rem;color:#2e7d32;font-size:.82rem;font-weight:600;text-align:center;font-family:'Libre Baskerville',serif}
+
+/* ═══ FOOTER ═══ */
+footer{
+  background:var(--ink);
+  border-top:3px solid var(--gold);
+  padding:4rem 4rem 2rem;
+  color:rgba(245,237,224,.4);
+}
+.ft{display:grid;grid-template-columns:1.8fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.fl-logo{font-family:'Petit Formal Script',cursive;font-size:2.5rem;color:var(--paper);margin-bottom:.8rem}
+.fl-desc{font-family:'Cormorant Garamond',serif;font-size:.92rem;font-style:italic;line-height:1.75;max-width:280px}
+.fc h5{font-family:'Libre Baskerville',serif;font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);margin-bottom:1rem;font-weight:700}
+.fc ul{list-style:none}
+.fc ul li{margin-bottom:.55rem}
+.fc ul li a{color:rgba(245,237,224,.4);text-decoration:none;font-family:'Cormorant Garamond',serif;font-size:.9rem;transition:color .2s}
+.fc ul li a:hover{color:var(--paper)}
+.footer-social{display:flex;gap:.6rem;margin-top:1.2rem}
+.fs-btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:.4rem .9rem;border-radius:100px;
+  font-size:.68rem;font-weight:700;letter-spacing:.5px;
+  text-decoration:none;transition:opacity .2s;
+}
+.fs-btn:hover{opacity:.85}
+.fs-insta{background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);color:#fff}
+.fs-pj{background:#ffcc00;color:#1a1a1a}
+.fb{border-top:1px solid rgba(245,237,224,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.fb p{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic}
+
+/* ═══ FLOAT ═══ */
+.float{position:fixed;bottom:2rem;right:2rem;z-index:300;display:flex;flex-direction:column;gap:.6rem;align-items:flex-end}
+.float a{
+  display:flex;align-items:center;gap:.5rem;
+  padding:.75rem 1.4rem;
+  font-family:'Libre Baskerville',serif;
+  font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  text-decoration:none;transition:transform .2s;
+}
+.float a:hover{transform:translateY(-2px)}
+.f-phone{background:var(--red);color:var(--paper);border:1px solid var(--gold);animation:fp 2.5s ease-in-out infinite}
+.f-uber{background:#06c167;color:#fff}
+@keyframes fp{0%,100%{box-shadow:0 4px 18px rgba(139,26,26,.4)}50%{box-shadow:0 4px 28px rgba(139,26,26,.7)}}
+
+/* ═══ REVEAL ═══ */
+.r{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.r.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.12s}.d2{transition-delay:.24s}.d3{transition-delay:.36s}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:960px){
+  nav{padding:0 1.2rem}
+  .nav-links{display:none}
+  .nav-social{display:none}
+  #hero{padding-top:64px}
+  .frame-outer{padding:1.5rem 1.5rem}
+  .frame-inner{padding:1.2rem 1rem}
+  .hero-strip{grid-template-columns:1fr 1fr}
+  .hs{border-bottom:1px solid rgba(184,134,42,.1)}
+  .uber-bar,.social-bar{padding:1.2rem 1.5rem}
+  .photo-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .gi:first-child{grid-row:span 1}
+  .gi{height:200px}
+  #menu{padding:4rem 1.5rem}
+  .menu-card{padding:2rem 1.5rem}
+  #philo{grid-template-columns:1fr;padding:4rem 1.5rem;max-width:100%}
+  .philo-imgs{height:280px}
+  .pimg-acc{display:none}
+  .hor-inner{grid-template-columns:1fr;gap:2rem}
+  #horaires,#social,#contact{padding:4rem 1.5rem}
+  .contact-inner{grid-template-columns:1fr;gap:2.5rem}
+  .ft{grid-template-columns:1fr}
+  footer{padding:3rem 1.5rem 2rem}
+  .frow{grid-template-columns:1fr}
+  #galerie{padding:4rem 1.5rem}
+  .social-cards{flex-direction:column;align-items:center}
+  .sc{min-width:0;width:100%;max-width:320px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Pizzeria <em>Bayard</em></div>
+  <ul class="nav-links">
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#horaires">Horaires</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://www.instagram.com/lebayard_pontcharra/" target="_blank" class="nav-social ns-insta">
+      <svg class="ico-insta" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Instagram
+    </a>
+    <a href="https://www.pagesjaunes.fr/pros/03920096" target="_blank" class="nav-social ns-pj">📒 Pages Jaunes</a>
+    <a href="https://www.ubereats.com" target="_blank" class="nav-order-btn">🛵 Commander</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="frame-outer">
+      <div class="frame-inner">
+        <div class="hero-pretitle">Pontcharra · Isère · Depuis toujours</div>
+        <h1 class="hero-title">
+          Pizzeria
+          <em>Bayard</em>
+        </h1>
+        <div class="hero-divider">✦ ✦ ✦</div>
+        <p class="hero-sub">Pizzas traditionnelles italiennes — matières premières de très bonne qualité<br>Sur place · À emporter · Uber Eats</p>
+        <div class="hero-ctas">
+          <a href="#menu" class="cta-hero cta-hero-red">🍕 Notre menu</a>
+          <a href="https://www.ubereats.com" target="_blank" class="cta-hero cta-green">🛵 Uber Eats</a>
+          <a href="#contact" class="cta-hero cta-hero-ghost">📞 Nous contacter</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-strip">
+    <div class="hs"><span class="hs-l">Téléphone</span><span class="hs-v"><a href="tel:0761050668">07 61 05 06 68</a></span></div>
+    <div class="hs"><span class="hs-l">Adresse</span><span class="hs-v">2 Av. de Savoie, Pontcharra</span></div>
+    <div class="hs"><span class="hs-l">Statut</span><span class="hs-v" id="statut-hero">Chargement…</span></div>
+    <div class="hs"><span class="hs-l">Livraison</span><span class="hs-v" style="color:#6ee7a0">✓ Uber Eats</span></div>
+  </div>
+</section>
+
+<!-- UBER EATS BANNER -->
+<div class="uber-bar">
+  <div class="ub-l">
+    <div class="ub-ico">🛵</div>
+    <div class="ub-txt">
+      <strong>Nouveau — Commandez sur Uber Eats !</strong>
+      <span>Livraison à domicile sur Pontcharra et les communes voisines</span>
+    </div>
+  </div>
+  <a href="https://www.ubereats.com" target="_blank" class="ub-cta">Commander maintenant →</a>
+</div>
+
+<!-- SOCIAL BAR -->
+<div class="social-bar">
+  <span class="social-bar-label">Retrouvez-nous sur</span>
+  <a href="https://www.instagram.com/lebayard_pontcharra/" target="_blank" class="sb-btn sb-insta">
+    <svg class="ico-insta" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    @lebayard_pontcharra
+  </a>
+  <a href="https://www.pagesjaunes.fr/pros/03920096" target="_blank" class="sb-btn sb-pj">
+    📒 Pages Jaunes
+  </a>
+</div>
+
+<!-- GALERIE -->
+<section id="galerie">
+  <div class="gal-header r">
+    <div class="s-eyebrow" style="color:var(--gold2)">Nos créations</div>
+    <h2 style="color:var(--paper)">La pizza <em style="color:var(--gold2)">comme en Italie</em></h2>
+    <div class="s-rule" style="max-width:300px;margin:1rem auto;color:var(--gold)"></div>
+  </div>
+  <div class="photo-grid">
+    <div class="gi r">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=900&q=85" alt="Pizza Margherita">
+      <div class="gi-frame"></div>
+      <div class="gi-cap"><h4>Nos pizzas maison</h4><p>Pâte traditionnelle</p></div>
+    </div>
+    <div class="gi r d1">
+      <img src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=700&q=85" alt="Pizza 4 fromages">
+      <div class="gi-frame"></div>
+      <div class="gi-cap"><h4>4 Fromages</h4><p>Generosità italiana</p></div>
+    </div>
+    <div class="gi r d2">
+      <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=700&q=85" alt="Pizza saumon">
+      <div class="gi-frame"></div>
+      <div class="gi-cap"><h4>Pizza Saumon</h4><p>Crème fraîche · Mozzarella</p></div>
+    </div>
+    <div class="gi r d1">
+      <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=700&q=85" alt="Pizza chorizo">
+      <div class="gi-frame"></div>
+      <div class="gi-cap"><h4>Pizza Chorizo</h4><p>Épicée et généreuse</p></div>
+    </div>
+    <div class="gi r d2">
+      <img src="https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=700&q=85" alt="Part de pizza">
+      <div class="gi-frame"></div>
+      <div class="gi-cap"><h4>Pizza Bayard</h4><p>Notre signature · Bacon · Œuf</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" style="padding:6rem 4rem">
+  <div class="s-center r" style="margin-bottom:3rem">
+    <div class="s-eyebrow">La carte</div>
+    <h2>Notre <em>menu</em></h2>
+    <div class="s-rule">✦</div>
+    <p class="s-sub">Toutes nos pizzas sont disponibles sur place, à emporter<br>ou en livraison via <strong style="color:#06c167">Uber Eats</strong></p>
+  </div>
+
+  <div class="menu-inner r d1">
+    <div class="menu-card">
+      <!-- Header menu -->
+      <div class="menu-title-block">
+        <div class="menu-establishment">Pizzeria Bayard</div>
+        <div class="menu-subtitle">Pontcharra · Isère</div>
+        <div class="menu-tagline">Pizzas traditionnelles italiennes — sur place ou à emporter</div>
+        <div class="menu-address">2 Avenue de Savoie, 38530 Pontcharra · 07 61 05 06 68</div>
+      </div>
+
+      <div class="pizza-section-title">Nos Pizzas</div>
+
+      <div class="pizza-list">
+
+        <div class="pz">
+          <div class="pz-wrap">
+            <div style="display:flex;align-items:baseline;gap:.5rem;width:100%">
+              <span class="pz-name">Margherita</span>
+              <span class="pz-dots"></span>
+              <span class="pz-price">10,00 €</span>
+            </div>
+            <span class="pz-ingr">Tomate, Mozzarella</span>
+          </div>
+        </div>
+
+        <div class="pz">
+          <div class="pz-wrap">
+            <div style="display:flex;align-items:baseline;gap:.5rem;width:100%">
+              <span class="pz-name">Anchois</span>
+              <span class="pz-dots"></span>
+              <span class="pz-price">10,00 €</span>
+            </div>
+            <span class="pz-ingr">Tomate, Mozzarella, Anchois</span>
+          </div>
+        </div>
+
+        <div class="pz">
+          <div class="pz-wrap">
+            <div style="display:flex;align-items:baseline;gap:.5rem;width:100%">
+              <span class="pz-name">4 Fromages <span class="badge-special">Incontournable</span></span>
+              <span class="pz-dots"></span>
+              <span class="pz-price">12,00 €</span>
+            </div>
+            <span class="pz-ingr">Emmental, Chèvre, Mozzarella, Bleu</span>
+          </div>
+        </div>
+
+        <div class="pz">
+          <div class="pz-wrap">
+            <div style="display:flex;align-items:baseline;gap:.5rem;width:100%">
+              <span class="pz-name">Merguez</span>
+              <span class="pz-dots"></span>
+              <span class="pz-price">12,00 €</span>
+            </div>
+            <span class="pz-ingr">Tomate, Mozzarella, Merguez</span>
+          </div>
+        </div>
+
+        <div class="pz">
+          <div class="pz-wrap">
+            <div style="display:flex;align-items:baseline;gap:.5rem;width:100%">
+              <span class="pz-name">Chorizo</span>
+              <span class="pz-dots"></span>
+              <span class="pz-price">12,00 €</span>
+            </div>
+            <span class="pz-ingr">Tomate, Mozzarella, Chorizo</span>
+          </div>
+        </div>
+
+        <div class="pz">
+          <div class="pz-wrap">
+            <div style="display:flex;align-items:baseline;gap:.5rem;width:100%">
+              <span class="pz-name">Jambon / Fromage</span>
+              <span class="pz-dots"></span>
+              <span class="pz-price">12,00 €</span>
+            </div>
+            <span class="pz-ingr">Tomate, Mozzarella, Jambon</span>
+          </div>
+        </div>
+
+        <div class="pz" style="background:rgba(139,26,26,.04);padding:.85rem .5rem;margin:0 -.5rem">
+          <div class="pz-wrap">
+            <div style="display:flex;align-items:baseline;gap:.5rem;width:100%">
+              <span class="pz-name">Pizza Bayard <span class="badge-special">Signature</span></span>
+              <span class="pz-dots"></span>
+              <span class="pz-price">12,00 €</span>
+            </div>
+            <span class="pz-ingr">Tomate, Mozzarella, Bacon, Œuf</span>
+          </div>
+        </div>
+
+        <div class="pz">
+          <div class="pz-wrap">
+            <div style="display:flex;align-items:baseline;gap:.5rem;width:100%">
+              <span class="pz-name">Pizza Kebab <span class="badge-special badge-new">Populaire</span></span>
+              <span class="pz-dots"></span>
+              <span class="pz-price">12,00 €</span>
+            </div>
+            <span class="pz-ingr">Crème fraîche, Mozzarella, Viande kebab</span>
+          </div>
+        </div>
+
+        <div class="pz">
+          <div class="pz-wrap">
+            <div style="display:flex;align-items:baseline;gap:.5rem;width:100%">
+              <span class="pz-name">Saumon <span class="badge-special" style="background:var(--gold);color:var(--ink)">Premium</span></span>
+              <span class="pz-dots"></span>
+              <span class="pz-price">13,00 €</span>
+            </div>
+            <span class="pz-ingr">Crème fraîche, Mozzarella, Saumon</span>
+          </div>
+        </div>
+
+      </div><!-- /pizza-list -->
+
+      <div class="menu-note">
+        Pizzas disponibles sur place & à emporter · Livraison via
+        <a href="https://www.ubereats.com" target="_blank" style="color:#06c167;font-weight:700">Uber Eats 🛵</a><br>
+        <em>Produits italiens de qualité supérieure · Fait maison avec passion</em>
+      </div>
+      <div class="menu-ctas">
+        <a href="tel:0761050668" class="menu-btn mb-red">📞 Appeler pour commander</a>
+        <a href="https://www.ubereats.com" target="_blank" class="menu-btn mb-green">🛵 Commander en ligne</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHIE -->
+<section>
+  <div id="philo">
+    <div class="philo-imgs r">
+      <img class="pimg-main" src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&q=85" alt="Pizza artisanale">
+      <img class="pimg-acc" src="https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&q=85" alt="Détail pizza">
+      <div class="philo-stamp">Fatto a mano</div>
+    </div>
+    <div class="philo-content r d1">
+      <div class="s-eyebrow">Notre philosophie</div>
+      <h2>La qualité<br><em>avant tout</em></h2>
+      <div class="s-rule" style="margin-left:0;max-width:260px">✦</div>
+      <p class="philo-desc">Chez la Pizzeria Bayard, nous vous proposons des pizzas traditionnelles italiennes à déguster sur place ou à emporter, avec des matières premières de très bonne qualité de produit italien.</p>
+      <ul class="philo-list">
+        <li><span class="pl-check">✦</span>Ingrédients italiens sélectionnés avec le plus grand soin</li>
+        <li><span class="pl-check">✦</span>Pâte travaillée selon la tradition, croustillante et légère</li>
+        <li><span class="pl-check">✦</span>Accueil chaleureux, sur place ou à emporter</li>
+        <li><span class="pl-check">✦</span>Livraison disponible via Uber Eats — depuis chez vous</li>
+        <li><span class="pl-check">✦</span>Ouvert 5 jours sur 7, midi et soir</li>
+        <li><span class="pl-check">✦</span>2 Avenue de Savoie, 38530 Pontcharra</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- HORAIRES -->
+<section id="horaires">
+  <div class="hor-inner">
+    <div>
+      <div class="hor-header r" style="margin-bottom:2rem">
+        <div class="s-eyebrow" style="color:var(--gold2);text-align:left">Quand nous trouver</div>
+        <h2 style="color:var(--paper);font-size:2.5rem;text-align:left">Nos <em style="color:var(--gold2)">horaires</em></h2>
+      </div>
+      <div class="hor-card r">
+        <div class="hor-row"><span class="hor-day">Lundi</span><span class="hor-time open">11h–15h · 18h–21h</span></div>
+        <div class="hor-row"><span class="hor-day">Mardi</span><span class="hor-time closed">Fermé</span></div>
+        <div class="hor-row"><span class="hor-day">Mercredi</span><span class="hor-time closed">Fermé</span></div>
+        <div class="hor-row"><span class="hor-day">Jeudi</span><span class="hor-time open">11h–15h · 18h–21h</span></div>
+        <div class="hor-row"><span class="hor-day">Vendredi</span><span class="hor-time open">11h–15h · 18h–21h</span></div>
+        <div class="hor-row"><span class="hor-day">Samedi</span><span class="hor-time open">11h–15h · 18h–21h</span></div>
+        <div class="hor-row"><span class="hor-day hl">Dimanche ●</span><span class="hor-time open">11h–15h · 18h–21h</span></div>
+      </div>
+    </div>
+    <div class="contact-card r d1">
+      <div class="cc-title">Nous joindre</div>
+      <div class="cc-item">
+        <div class="cc-ico">📞</div>
+        <div><div class="cc-l">Téléphone</div><div class="cc-v"><a href="tel:0761050668">07 61 05 06 68</a></div></div>
+      </div>
+      <div class="cc-item">
+        <div class="cc-ico">📍</div>
+        <div><div class="cc-l">Adresse</div><div class="cc-v">2 Avenue de Savoie<br>38530 Pontcharra</div></div>
+      </div>
+      <div class="cc-item">
+        <div class="cc-ico">📸</div>
+        <div><div class="cc-l">Instagram</div><div class="cc-v"><a href="https://www.instagram.com/lebayard_pontcharra/" target="_blank">@lebayard_pontcharra</a></div></div>
+      </div>
+      <div class="cc-item">
+        <div class="cc-ico">📒</div>
+        <div><div class="cc-l">Pages Jaunes</div><div class="cc-v"><a href="https://www.pagesjaunes.fr/pros/03920096" target="_blank">Voir notre fiche</a></div></div>
+      </div>
+      <div class="cc-item">
+        <div class="cc-ico">🛵</div>
+        <div><div class="cc-l">Livraison</div><div class="cc-v"><a href="https://www.ubereats.com" target="_blank" style="color:#6ee7a0">Uber Eats — disponible</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL SECTION -->
+<section id="social">
+  <div class="r">
+    <div class="s-eyebrow">Suivez-nous</div>
+    <h2>Restez <em>connectés</em></h2>
+    <div class="s-rule">✦</div>
+    <p class="s-sub">Retrouvez nos actualités, photos et nouveautés sur nos pages</p>
+  </div>
+  <div class="social-cards">
+    <a href="https://www.instagram.com/lebayard_pontcharra/" target="_blank" class="sc sc-insta r">
+      <div class="sc-ico-wrap">
+        <svg style="width:36px;height:36px;fill:white" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </div>
+      <div class="sc-text">
+        <strong>Instagram</strong>
+        <span>@lebayard_pontcharra</span>
+      </div>
+    </a>
+    <a href="https://www.pagesjaunes.fr/pros/03920096" target="_blank" class="sc sc-pj r d1">
+      <div class="sc-ico-wrap">📒</div>
+      <div class="sc-text">
+        <strong>Pages Jaunes</strong>
+        <span>Notre fiche officielle</span>
+      </div>
+    </a>
+    <a href="https://www.ubereats.com" target="_blank" class="sc sc-uber r d2">
+      <div class="sc-ico-wrap">🛵</div>
+      <div class="sc-text">
+        <strong>Uber Eats</strong>
+        <span>Livraison à domicile</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="s-center r" style="margin-bottom:3rem">
+    <div class="s-eyebrow">Réservation & contact</div>
+    <h2>Venez nous <em>voir</em></h2>
+    <div class="s-rule">✦</div>
+    <p class="s-sub">Une question, une réservation de groupe ? Nous sommes là.</p>
+  </div>
+  <div class="contact-inner">
+    <div class="r">
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2796.5!2d6.001!3d45.437!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478b8f!2s2+Avenue+de+Savoie%2C+38530+Pontcharra!5e0!3m2!1sfr!2sfr!4v1700000000" allowfullscreen="" loading="lazy"></iframe>
+        <div class="address-plate">
+          <div class="ap-row"><strong>Adresse</strong> 2 Avenue de Savoie, 38530 Pontcharra</div>
+          <div class="ap-row"><strong>Tél</strong> <a href="tel:0761050668" style="color:var(--gold2)">07 61 05 06 68</a></div>
+          <div class="ap-row"><strong>Horaires</strong> Lun/Jeu–Dim : 11h–15h · 18h–21h</div>
+          <div class="ap-row"><strong>Fermé</strong> Mardi & Mercredi</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-box r d1">
+      <div class="form-hl">Envoyez-nous un message</div>
+      <div class="frow">
+        <div class="fg"><label>Prénom *</label><input type="text" id="p" placeholder="Jean"></div>
+        <div class="fg"><label>Téléphone *</label><input type="tel" id="t" placeholder="06 XX XX XX XX"></div>
+      </div>
+      <div class="fg">
+        <label>Objet</label>
+        <select id="s">
+          <option>Réservation de table</option>
+          <option>Réservation de groupe</option>
+          <option>Commande spéciale</option>
+          <option>Question générale</option>
+        </select>
+      </div>
+      <div class="fg"><label>Message *</label><textarea id="m" placeholder="Votre message, nombre de personnes, date…"></textarea></div>
+      <button class="submit" onclick="go()">Envoyer le message</button>
+      <div class="form-ok" id="ok">✅ Message envoyé — nous vous rappelons très vite !</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div>
+      <div class="fl-logo">Pizzeria Bayard</div>
+      <p class="fl-desc">Pizzas traditionnelles italiennes préparées avec des matières premières de très bonne qualité — sur place, à emporter ou via Uber Eats. Pontcharra, Isère.</p>
+      <div class="footer-social" style="margin-top:1.2rem">
+        <a href="https://www.instagram.com/lebayard_pontcharra/" target="_blank" class="fs-btn fs-insta">
+          <svg style="width:12px;height:12px;fill:white" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.pagesjaunes.fr/pros/03920096" target="_blank" class="fs-btn fs-pj">📒 Pages Jaunes</a>
+      </div>
+    </div>
+    <div class="fc">
+      <h5>Navigation</h5>
+      <ul>
+        <li><a href="#galerie">Galerie photos</a></li>
+        <li><a href="#menu">Notre menu</a></li>
+        <li><a href="#horaires">Horaires</a></li>
+        <li><a href="#social">Réseaux sociaux</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="fc">
+      <h5>Infos pratiques</h5>
+      <ul>
+        <li><a href="tel:0761050668">📞 07 61 05 06 68</a></li>
+        <li><a href="#">2 Av. de Savoie, 38530</a></li>
+        <li><a href="#">Pontcharra · Isère</a></li>
+        <li><a href="#">Lun/Jeu–Dim : 11h–21h</a></li>
+        <li><a href="#">Mar & Mer : Fermé</a></li>
+        <li><a href="https://www.ubereats.com" target="_blank" style="color:#6ee7a0">🛵 Uber Eats</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fb">
+    <p>© 2025 Pizzeria Bayard — 2 Avenue de Savoie, 38530 Pontcharra · Tous droits réservés</p>
+    <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
+      <a href="https://www.instagram.com/lebayard_pontcharra/" target="_blank" class="fs-btn fs-insta" style="font-size:.65rem">Instagram</a>
+      <a href="https://www.pagesjaunes.fr/pros/03920096" target="_blank" class="fs-btn fs-pj" style="font-size:.65rem">Pages Jaunes</a>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING -->
+<div class="float">
+  <a href="https://www.ubereats.com" target="_blank" class="f-uber">🛵 Uber Eats</a>
+  <a href="tel:0761050668" class="f-phone">📞 07 61 05 06 68</a>
+</div>
+
+<script>
+// Reveal
+const rs=document.querySelectorAll('.r');
+const ob=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('on');ob.unobserve(x.target)}})},{threshold:.08});
+rs.forEach(el=>ob.observe(el));
+
+// Hide float on hero
+const ho=new IntersectionObserver(e=>{
+  document.querySelector('.float').style.opacity=e[0].isIntersecting?'0':'1'
+},{threshold:.3});
+ho.observe(document.getElementById('hero'));
+
+// Statut dynamique
+function setStatut(){
+  const d=new Date().getDay(); // 0=dim
+  const closed=[2,3];
+  const el=document.getElementById('statut-hero');
+  if(!el)return;
+  if(closed.includes(d)){
+    el.innerHTML='<span style="color:#f87171">Fermé aujourd\'hui</span>';
+  } else {
+    el.innerHTML='<span style="color:#6ee7a0">Ouvert · 11h–15h / 18h–21h</span>';
+  }
+}
+setStatut();
+
+// Form
+function go(){
+  const p=document.getElementById('p').value,t=document.getElementById('t').value,m=document.getElementById('m').value;
+  if(!p||!t||!m){alert('Veuillez remplir les champs obligatoires (*).');return}
+  document.getElementById('ok').style.display='block';
+  ['p','t','m'].forEach(id=>document.getElementById(id).value='');
+  setTimeout(()=>document.getElementById('ok').style.display='none',7000);
+}
+</script>
+</body>
+</html>
